@@ -158,10 +158,15 @@ class BinarySearchTree{
 
    
    
-   /*
-   this method will not compile until getMax
-   is implemented
-   */
+   
+    /**
+     * Deletes a node with the specified key from the binary search tree.
+     *
+     * @param root the root node of the current subtree
+     * @param key  the key to delete
+     * @return the root node of the updated tree
+     */
+
    public Node delete(Node root, int key){
       
       if(root == null){
@@ -196,20 +201,32 @@ class BinarySearchTree{
 
 
 
+ * A class demonstrating the usage of BinarySearchTree class.
+ */
 public class TreeDemo{
-   public static void main(String[] args){
-      BinarySearchTree t1  = new BinarySearchTree();
-      t1.insert(24);
-      t1.insert(80);
-      t1.insert(18);
-      t1.insert(9);
-      t1.insert(90);
-      t1.insert(22);
-            
-      System.out.print("in-order :   ");
-      t1.inOrderTraversal(t1.root);
-      System.out.println();
-           
-      
-   }  
+    /**
+     * Main method to demonstrate binary search tree operations.
+     *
+     * @param args command-line arguments (not used)
+     */
+    public static void main(String[] args){
+        BinarySearchTree t1 = new BinarySearchTree();
+        t1.insert(24);
+        t1.insert(80);
+        t1.insert(18);
+        t1.insert(9);
+        t1.insert(90);
+        t1.insert(22);
+
+        System.out.print("in-order: ");
+        t1.inOrderTraversal(t1.root);
+        System.out.println();
+
+        // Example usage of other methods
+        System.out.println("Min value: " + t1.getMin(t1.root));
+        System.out.println("Max value: " + t1.getMax(t1.root));
+        System.out.println("Value 18 found? " + t1.find(t1.root, 18));
+        System.out.println("Value 100 found? " + t1.find(t1.root, 100));
+    }
+
 }
