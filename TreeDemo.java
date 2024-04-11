@@ -1,66 +1,72 @@
-/**
+**
  * Represents a node in a binary search tree.
  */
-
 class Node{
-   int value;
-   Node left, right;
-     /**
+    int value;
+    Node left, right;
+
+    /**
      * Constructs a new node with the given value.
      *
      * @param value the value to be stored in the node
      */
-  
-      public Node(int value){
+    public Node(int value){
         this.value = value;
         this.left = null;
         this.right = null;
     }
 
-
 }
 /**
  * Represents a binary search tree and provides various operations on it.
  */
-
 class BinarySearchTree{
 
-   Node root;
-   
-   
-      /**
+    Node root;
+
+
+    /**
      * Inserts a new node with the given value into the binary search tree.
      *
      * @param value the value to insert
      * @return the root node of the updated tree
      */
+    public Node insert(int value){
+        this.root = insertRecursive(this.root, value);
+        return this.root;
+    }
 
-   public Node insert(Node root, int value){
-      //base case
-      if(root == null){
-         root = new Node(value);
-         return root;
-      }
-      
-      //recursive step
-      if(value < root.value){
-         root.left = insert(root.left, value); 
-      }else{
-         root.right = insert(root.right, value);
-      }
-      
-      return root;
-   }
-   
-   
-   
-       /**
+    /**
+     * Helper method for recursive insertion of nodes.
+     *
+     * @param root  the root node of the current subtree
+     * @param value the value to insert
+     * @return the root node of the updated subtree
+     */
+    private Node insertRecursive(Node root, int value){
+        //base case
+        if(root == null){
+            return new Node(value);
+        }
+
+        //recursive step
+        if(value < root.value){
+            root.left = insertRecursive(root.left, value);
+        }else{
+            root.right = insertRecursive(root.right, value);
+        }
+
+        return root;
+    }
+
+
+
+    /**
      * Performs a pre-order traversal of the binary search tree.
      *
      * @param root the root node of the subtree to traverse
      */
-
-     public void preOrderTraversal(Node root){
+    public void preOrderTraversal(Node root){
         if(root != null){
             System.out.print(root.value + " ");
             preOrderTraversal(root.left);
@@ -69,9 +75,7 @@ class BinarySearchTree{
     }
 
 
-   
-   
-       /**
+    /**
      * Performs an in-order traversal of the binary search tree.
      *
      * @param root the root node of the subtree to traverse
@@ -84,9 +88,8 @@ class BinarySearchTree{
         }
     }
 
-   
-   
-     /**
+
+    /**
      * Performs a post-order traversal of the binary search tree.
      *
      * @param root the root node of the subtree to traverse
@@ -99,10 +102,8 @@ class BinarySearchTree{
         }
     }
 
-   
-   
-   
-  
+
+
     /**
      * Searches for a node with the specified key in the binary search tree.
      *
@@ -122,7 +123,8 @@ class BinarySearchTree{
         }
     }
 
-   
+
+
     /**
      * Finds the minimum value in the binary search tree.
      *
@@ -139,7 +141,7 @@ class BinarySearchTree{
         }
         return root.value;
     }
-     /**
+    /**
      * Finds the maximum value in the binary search tree.
      *
      * @param root the root node of the subtree to search
@@ -156,9 +158,8 @@ class BinarySearchTree{
         return root.value;
     }
 
-   
-   
-   
+
+
     /**
      * Deletes a node with the specified key from the binary search tree.
      *
@@ -166,41 +167,40 @@ class BinarySearchTree{
      * @param key  the key to delete
      * @return the root node of the updated tree
      */
+    public Node delete(Node root, int key){
 
-   public Node delete(Node root, int key){
-      
-      if(root == null){
-         return root;
-      }else if(key < root.value){
-         root.left = delete(root.left, key);
-      }else if(key > root.value){
-         root.right = delete(root.right, key);
-      }else{
-         //node has been found
-         if(root.left==null && root.right==null){
-            //case #1: leaf node
-            root = null;
-         }else if(root.right == null){
-            //case #2 : only left child
-            root = root.left;
-         }else if(root.left == null){
-            //case #2 : only right child
-            root = root.right;
-         }else{
-            //case #3 : 2 children
-            root.value = getMax(root.left);
-            root.left = delete(root.left, root.value);
-         }
-      }
-      return root;  
-   }
-   
-   
-   
+        if(root == null){
+            return root;
+        }else if(key < root.value){
+            root.left = delete(root.left, key);
+        }else if(key > root.value){
+            root.right = delete(root.right, key);
+        }else{
+            //node has been found
+            if(root.left==null && root.right==null){
+                //case #1: leaf node
+                root = null;
+            }else if(root.right == null){
+                //case #2 : only left child
+                root = root.left;
+            }else if(root.left == null){
+                //case #2 : only right child
+                root = root.right;
+            }else{
+                //case #3 : 2 children
+                root.value = getMax(root.left);
+                root.left = delete(root.left, root.value);
+            }
+        }
+        return root;
+    }
+
+
+
 }
 
 
-
+/**
  * A class demonstrating the usage of BinarySearchTree class.
  */
 public class TreeDemo{
@@ -218,8 +218,8 @@ public class TreeDemo{
         t1.insert(90);
         t1.insert(22);
 
-        System.out.print("in-order: ");
-        t1.inOrderTraversal(t1.root);
+        System.out.print("post-order: ");
+        t1.postOrderTraversal(t1.root);
         System.out.println();
 
         // Example usage of other methods
