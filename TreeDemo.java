@@ -139,18 +139,23 @@ class BinarySearchTree{
         }
         return root.value;
     }
-    /**
+     /**
+     * Finds the maximum value in the binary search tree.
+     *
+     * @param root the root node of the subtree to search
+     * @return the maximum value in the subtree
+     * @throws IllegalArgumentException if the tree is empty
+     */
+    public int getMax(Node root){
+        if(root == null){
+            throw new IllegalArgumentException("Tree is empty");
+        }
+        while(root.right != null){
+            root = root.right;
+        }
+        return root.value;
+    }
 
-  
-  
-   /*
-   a method to find the node in the tree
-   with a largest key
-   */
-   public int getMax(Node root){
-	  //implement me
-   }
-   
    
    
    /*
